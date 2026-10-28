@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087fa8">
+
+  <title>ILMO Health | صيدليتي</title>
+
+  <style>
+    :root {
+      --blue: #087fa8;
+      --cyan: #20b8d5;
+      --light: #eaf9ff;
+      --white: #ffffff;
+      --ink: #163746;
+      --muted: #6d8794;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #087fa8, #20b8d5);
+      color: white;
+      padding: 28px 20px 35px;
+      border-radius: 0 0 28px 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 55px;
+      height: 55px;
+      background: white;
+      color: var(--blue);
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    header h1 {
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .welcome {
+      margin-top: 28px;
+    }
+
+    .welcome h2 {
+      font-size: 23px;
+      margin-bottom: 9px;
+    }
+
+    .welcome p {
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 22px 16px 35px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      margin: 8px 0 16px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #dceef5;
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: right;
+      cursor: pointer;
+      color: var(--ink);
+      box-shadow: 0 4px 14px #16465a0a;
+      transition: transform .2s;
+      min-height: 145px;
+    }
+
+    .card:active {
+      transform: scale(.97);
+    }
+
+    .card .emoji {
+      display: grid;
+      place-items: center;
+      width: 49px;
+      height: 49px;
+      background: var(--light);
+      border-radius: 15px;
+      font-size: 25px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .notice {
+      margin-top: 22px;
+      background: #d9f4fb;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .menu {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo">+</div>
+      <div>
+        <h1>ILMO Health</h1>
+        <p>منصة علمية للتعلم الصيدلاني</p>
+      </div>
+    </div>
+
+    <div class="welcome">
+      <h2>أهلاً بك في صيدليتي 👋</h2>
+      <p>
+        تعلّم الأدوية، طوّر معلوماتك السريرية،
+        واختبر مستواك العلمي في مكان واحد.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">أقسام التطبيق</h2>
+
+    <div class="menu">
+
+      <button class="card" onclick="openSection('drugs')">
+        <div class="emoji">💊</div>
+        <h3>الأدوية</h3>
+        <p>معلومات الأدوية وتصنيفاتها وأنظمتها.</p>
+      </button>
+
+      <button class="card" onclick="openSection('cases')">
+        <div class="emoji">🩺</div>
+        <h3>الكيسات الدوائية</h3>
+        <p>حالات سريرية بمستويات مختلفة.</p>
+      </button>
+
+      <button class="card" onclick="openSection('sources')">
+        <div class="emoji">📚</div>
+        <h3>المصادر</h3>
+        <p>المراجع العلمية والطبية المعتمدة.</p>
+      </button>
+
+      <button class="card" onclick="openSection('progress')">
+        <div class="emoji">📈</div>
+        <h3>التقدم</h3>
+        <p>تابع نتائجك وإجاباتك الصحيحة والأخطاء.</p>
+      </button>
+
+      <button class="card" onclick="openSection('science')">
+        <div class="emoji">🧪</div>
+        <h3>المادة العلمية</h3>
+        <p>الفارماكولوجي والسموم والتداخلات الدوائية.</p>
+      </button>
+
+    </div>
+
+    <div class="notice">
+      <strong>💡 هدفك العلمي يبدأ هنا</strong>
+      <p>
+        تعلّم باستمرار، راجع المعلومات الدوائية،
+        وطوّر مهاراتك في حل الحالات السريرية.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    ILMO Health © 2026
+    <br>
+    منصة تعليمية صيدلانية
+  </footer>
+
+  <script>
+    function openSection(section) {
+      const pages = {
+        drugs: "drugs.html",
+        cases: "cases.html",
+        sources: "sources.html",
+        progress: "progress.html",
+        science: "science.html"
+      };
+
+      window.location.href = pages[section];
+    }
+  </script>
+
+</body>
+</html>

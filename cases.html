@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087fa8">
+<title>ILMO Health | الكيسات الدوائية</title>
+
+<style>
+:root {
+  --blue:#087fa8;
+  --cyan:#20b8d5;
+  --light:#eaf9ff;
+  --ink:#163746;
+  --muted:#6d8794;
+  --white:#fff;
+  --green:#16845b;
+  --red:#c03945;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--ink);
+}
+header {
+  padding:22px 17px 26px;
+  color:white;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  border-radius:0 0 24px 24px;
+}
+.top {display:flex;align-items:center;gap:12px}
+.back {
+  color:white;text-decoration:none;
+  padding:10px 12px;
+  border:1px solid #ffffff70;
+  border-radius:12px;
+}
+h1 {font-size:22px;margin:0 0 7px}
+header p {font-size:13px;line-height:1.8;margin:0}
+main {max-width:760px;margin:auto;padding:18px 14px 35px}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;margin-bottom:17px;
+}
+.stat {
+  background:white;border:1px solid #dceef5;
+  border-radius:14px;padding:13px 7px;text-align:center;
+}
+.stat strong {display:block;font-size:22px;color:var(--blue);margin-bottom:5px}
+.stat span {font-size:11px;color:var(--muted)}
+.box {
+  background:white;border:1px solid #dceef5;
+  border-radius:20px;padding:18px;margin-bottom:14px;
+}
+.label {font-size:12px;color:var(--muted)}
+select {
+  width:100%;padding:13px;margin-top:8px;
+  border:1px solid #d4e7ef;border-radius:12px;
+  background:white;font-size:14px;color:var(--ink);
+}
+.levels {display:flex;gap:8px;margin-top:12px}
+.level {
+  flex:1;padding:11px 4px;border-radius:12px;
+  border:1px solid #d4e7ef;background:white;
+  color:var(--ink);cursor:pointer;font-size:12px;
+}
+.level.active {background:var(--blue);color:white}
+.case-head {
+  display:flex;justify-content:space-between;
+  align-items:center;gap:10px;margin-bottom:13px;
+}
+.tag {
+  background:var(--light);color:var(--blue);
+  padding:7px 10px;border-radius:10px;font-size:12px;
+}
+.case-title {font-size:19px;line-height:1.7;margin:12px 0}
+.scenario {font-size:15px;line-height:2;margin:0 0 17px}
+.question {
+  background:#f5fbfd;border-radius:14px;
+  padding:14px;line-height:1.9;font-size:15px;
+}
+.options {display:grid;gap:10px;margin-top:15px}
+.option {
+  width:100%;padding:14px;
+  background:white;border:1px solid #d4e7ef;
+  border-radius:13px;text-align:right;
+  font-size:14px;line-height:1.7;
+  color:var(--ink);cursor:pointer;
+}
+.option:disabled {cursor:default;opacity:1}
+.option.correct {border-color:var(--green);background:#e9f8f0}
+.option.wrong {border-color:var(--red);background:#fff0f0}
+.feedback {
+  display:none;margin-top:14px;padding:14px;
+  border-radius:13px;font-size:14px;line-height:2;
+}
+.feedback.show {display:block}
+.feedback.good {background:#e9f8f0;border:1px solid #a6dfc1}
+.feedback.bad {background:#fff0f0;border:1px solid #f1b9bd}
+.actions {display:flex;gap:9px;margin-top:16px}
+.btn {
+  flex:1;padding:13px 8px;border:0;border-radius:12px;
+  background:var(--blue);color:white;font-size:14px;
+  cursor:pointer;
+}
+.btn.secondary {background:#eaf4f7;color:var(--blue)}
+.btn:disabled {opacity:.45;cursor:not-allowed}
+.progress-bg {
+  height:7px;background:#e6f0f4;
+  border-radius:8px;overflow:hidden;margin:12px 0 17px;
+}
+.progress-bar {
+  height:100%;width:0;background:var(--cyan);
+  transition:width .2s;
+}
+.summary {display:none;text-align:center}
+.summary.show {display:block}
+.summary h2 {color:var(--blue)}
+.big-score {font-size:36px;font-weight:bold;margin:15px}
+.notice {
+  font-size:12px;line-height:1.9;
+  background:#fff8df;border:1px solid #f3e6b5;
+  border-radius:13px;padding:13px;margin-top:15px;
+}
+footer {text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(min-width:600px) {
+  main {padding-top:25px}
+  .box {padding:23px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="top">
+    <a class="back" href="index.html">← الرئيسية</a>
+    <div>
+      <h1>🩺 الكيسات الدوائية</h1>
+      <p>Clinical Pharmacy Cases | ILMO Health</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="stats">
+    <div class="stat">
+      <strong id="totalScore">0</strong>
+      <span>النقاط الصحيحة</span>
+    </div>
+    <div class="stat">
+      <strong id="totalWrong">0</strong>
+      <span>الأخطاء</span>
+    </div>
+    <div class="stat">
+      <strong id="totalDone">0</strong>
+      <span>الإجابات</span>
+    </div>
+  </div>
+
+  <section class="box" id="setup">
+    <h2 style="margin-top:0">اختَر مستوى التدريب</h2>
+    <label class="label" for="system">النظام الدوائي</label>
+    <select id="system">
+      <option value="الكل">كل الأنظمة</option>
+      <option value="القلب والضغط">القلب والضغط</option>
+      <option value="السكري">السكري</option>
+      <option value="المضادات الحيوية">المضادات الحيوية</option>
+      <option value="الجهاز التنفسي">الجهاز التنفسي</option>
+      <option value="الجهاز الهضمي">الجهاز الهضمي</option>
+      <option value="التداخلات الدوائية">التداخلات الدوائية</option>
+    </select>
+
+    <div class="label" style="margin-top:16px">مستوى الصعوبة</div>
+    <div class="levels">
+      <button class="level active" data-level="مبتدئ">مبتدئ</button>
+      <button class="level" data-level="متوسط">متوسط</button>
+      <button class="level" data-level="متقدم">متقدم</button>
+    </div>
+
+    <button class="btn" style="width:100%;margin-top:16px" onclick="startCases()">
+      ابدأ حل الكيسات
+    </button>
+  </section>
+
+  <section class="box" id="quiz" style="display:none">
+    <div class="case-head">
+      <span class="tag" id="caseLevel"></span>
+      <span class="label" id="caseNumber"></span>
+    </div>
+    <div class="progress-bg"><div class="progress-bar" id="bar"></div></div>
+    <h2 class="case-title" id="caseTitle"></h2>
+    <p class="scenario" id="scenario"></p>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+    <div class="actions">
+      <button class="btn secondary" onclick="backToSetup()">القائمة</button>
+      <button class="btn" id="nextBtn" onclick="nextCase()" disabled>الكيس التالي ←</button>
+    </div>
+  </section>
+
+  <section class="box summary" id="summary">
+    <h2>انتهت الجولة 🎉</h2>
+    <p>نتيجتك في هذه الجولة</p>
+    <div class="big-score" id="roundScore"></div>
+    <p id="roundMessage"></p>
+    <button class="btn" onclick="backToSetup()">جولة جديدة</button>
+    <button class="btn secondary" onclick="resetProgress()">تصفير التقدم</button>
+  </section>
+
+  <div class="notice">
+    <strong>تنبيه:</strong> هذه حالات افتراضية للتعليم وليست وصفات علاجية.
+    يجب التحقق من الإرشادات السريرية المحلية والجرعات وموانع الاستعمال
+    قبل تطبيق أي معلومة على مريض حقيقي. عند وجود حالة طارئة، تكون
+    الأولوية للتقييم الطبي العاجل.
+  </div>
+</main>
+
+<footer>ILMO Health © 2026 — التعليم الصيدلاني</footer>
+
+<script>
+const KEY = "ilmo_cases_progress_v1";
+
+const cases = [
+{
+level:"مبتدئ",system:"القلب والضغط",
+title:"حالة ارتفاع ضغط الدم",
+scenario:"رجل عمره 52 سنة يراجع العيادة، وقراءات ضغطه مرتفعة في زيارات متعددة. لا توجد أعراض طارئة، ويطلب نصيحة حول الخطوة الأولى.",
+question:"ما التصرف الأنسب قبل اختيار العلاج؟",
+options:[
+"تأكيد ارتفاع الضغط بقياسات صحيحة وتقييم عوامل الخطورة والأمراض المصاحبة",
+"إعطاؤه دواءين بجرعات عالية مباشرة دون تقييم",
+"إيقاف جميع الأدوية التي يتناولها",
+"اعتبار الحالة طارئة لمجرد ارتفاع القراءة"
+],
+answer:0,
+explanation:"ينبغي تأكيد التشخيص بقياسات مناسبة، وتقييم خطر القلب والأوعية والأدوية والأمراض المصاحبة، ثم اختيار الخطة وفق الإرشادات والحالة الفردية."
+},
+{
+level:"مبتدئ",system:"السكري",
+title:"ميتفورمين والسكري",
+scenario:"مريض مشخص بالسكري من النوع الثاني يسأل عن وظيفة الميتفورمين الذي وصفه له الطبيب.",
+question:"أي عبارة تصف آلية عمل الميتفورمين بصورة أفضل؟",
+options:[
+"يحفز إفراز الإنسولين مباشرةً بقوة",
+"يقلل إنتاج الغلوكوز في الكبد ويحسن الاستجابة للإنسولين",
+"يمنع امتصاص جميع الكربوهيدرات",
+"يعوض الإنسولين المفقود بشكل كامل"
+],
+answer:1,
+explanation:"يقلل الميتفورمين إنتاج الغلوكوز الكبدي ويحسن حساسية الإنسولين. وتُراجع وظائف الكلى والاحتياطات قبل وأثناء العلاج حسب الحالة."
+},
+{
+level:"مبتدئ",system:"المضادات الحيوية",
+title:"المضادات الحيوية والزكام",
+scenario:"شخص لديه رشح وعطاس وألم حلق خفيف منذ يومين، ولا توجد علامات إنذار. يطلب مضاداً حيوياً مباشرة.",
+question:"ما المبدأ الصحيح؟",
+options:[
+"المضاد الحيوي مطلوب لكل التهاب حلق",
+"يُستخدم المضاد الحيوي دائماً لتقصير الزكام",
+"تُقيّم الأعراض والاحتمال الفيروسي والحاجة إلى فحص قبل وصف المضاد",
+"تُستخدم بقايا المضاد من وصفة قديمة"
+],
+answer:2,
+explanation:"الزكام غالباً فيروسي ولا يعالج بالمضادات الحيوية. يُحدد الاحتياج للمضاد بعد التقييم وفق الأعراض والإرشادات، مع الانتباه إلى علامات الإنذار."
+},
+{
+level:"مبتدئ",system:"الجهاز التنفسي",
+title:"استخدام بخاخ الإنقاذ",
+scenario:"مريض ربو يستخدم سالبوتامول ويقول إنه لا يشعر بتحسن واضح بعد البخات.",
+question:"ما الخطوة العملية المناسبة؟",
+options:[
+"زيادة الجرعة بلا حدود",
+"مراجعة تقنية استخدام البخاخ وشدة الأعراض، وطلب المساعدة العاجلة إذا كان التنفس شديد الصعوبة",
+"إيقاف جميع علاجات الربو",
+"استخدام بخاخ شخص آخر"
+],
+answer:1,
+explanation:"يجب تقييم شدة النوبة وطريقة الاستخدام وخطة الربو. صعوبة التنفس الشديدة أو تدهور الوعي أو عدم الاستجابة يستدعي رعاية إسعافية عاجلة."
+},
+{
+level:"مبتدئ",system:"الجهاز الهضمي",
+title:"أوميبرازول",
+scenario:"مريض يسأل عن فئة أوميبرازول الدوائية.",
+question:"إلى أي فئة ينتمي؟",
+options:[
+"حاصر مستقبلات بيتا",
+"مثبط مضخة البروتون",
+"مضاد تخثر",
+"ناهض بيتا-2"
+],
+answer:1,
+explanation:"أوميبرازول من مثبطات مضخة البروتون، ويقلل إفراز الحمض المعدي. ينبغي مراجعة سبب الاستعمال ومدة العلاج عند الاستخدام الطويل."
+},
+{
+level:"متوسط",system:"التداخلات الدوائية",
+title:"وارفارين ومضاد حيوي",
+scenario:"مريض يتناول الوارفارين ويُخطط لوصف مضاد حيوي جديد له.",
+question:"ما الاعتبار الصيدلاني الأهم؟",
+options:[
+"لا توجد تداخلات مع الوارفارين",
+"مراجعة التداخل المحدد وخطة مراقبة INR والنزف مع الفريق المعالج",
+"إيقاف الوارفارين تلقائياً",
+"مضاعفة جرعة الوارفارين احتياطياً"
+],
+answer:1,
+explanation:"تتداخل مضادات حيوية عديدة مع الوارفارين وقد تغير INR وخطر النزف. يلزم فحص الدواء المحدد وتحديد توقيت المراقبة والخطة مع المختص."
+},
+{
+level:"متوسط",system:"السكري",
+title:"ميتفورمين ووظائف الكلى",
+scenario:"مريض يستخدم الميتفورمين، وأظهرت الفحوص تراجعاً جديداً في وظائف الكلى بعد مرض حاد وجفاف.",
+question:"ما التصرف الأنسب؟",
+options:[
+"تجاهل التغيرات والاستمرار دون تقييم",
+"مضاعفة الجرعة",
+"تقييم الحالة الكلوية والجفاف وإعادة النظر في العلاج وفق الإرشادات",
+"إضافة دواء عشوائي"
+],
+answer:2,
+explanation:"تراجع وظائف الكلى والمرض الحاد والجفاف تستدعي تقييماً سريعاً للعلاج ومخاطر الحماض اللبني. يعتمد القرار على شدة الحالة ونتائج وظائف الكلى."
+},
+{
+level:"متوسط",system:"القلب والضغط",
+title:"سعال مع مثبط ACE",
+scenario:"مريض بدأ دواء من مثبطات الإنزيم المحول للأنجيوتنسين ثم ظهر لديه سعال جاف مستمر، من دون ضيق نفس أو تورم.",
+question:"ما التفسير الممكن؟",
+options:[
+"السعال الجاف أثر جانبي معروف لبعض مثبطات ACE",
+"هذا يثبت وجود حساسية للبنسلين",
+"السعال يعني دائماً فشلاً قلبياً",
+"يجب زيادة الجرعة"
+],
+answer:0,
+explanation:"السعال الجاف أثر معروف لبعض مثبطات ACE. ينبغي تقييم الأسباب الأخرى ومراجعة الطبيب لاختيار بديل عند الحاجة. تورم اللسان أو الوجه أو صعوبة التنفس حالة طارئة."
+},
+{
+level:"متوسط",system:"المضادات الحيوية",
+title:"تحسس البنسلين",
+scenario:"مريض يذكر أنه أصيب سابقاً بصعوبة تنفس وتورم سريع بعد تناول البنسلين.",
+question:"ما الخطوة الأكثر أماناً عند التفكير بمضاد من عائلة البيتا لاكتام؟",
+options:[
+"تجاهل التاريخ التحسسي",
+"توثيق التفاعل وتقييم الحساسية واختيار العلاج مع مختص",
+"إعطاؤه الدواء نفسه لتجربة الحظ",
+"إعطاؤه جرعة مضاعفة"
+],
+answer:1,
+explanation:"التاريخ الذي يتضمن صعوبة التنفس والتورم قد يشير إلى تحسس شديد. يجب توثيقه وتقييم البدائل والمخاطر وفق الدواء المحدد والإرشادات."
+},
+{
+level:"متوسط",system:"الجهاز التنفسي",
+title:"ازدياد الحاجة إلى سالبوتامول",
+scenario:"مريض ربو صار يحتاج إلى بخاخ الإنقاذ أكثر من المعتاد خلال الأيام الأخيرة.",
+question:"ما التفسير والتصرف الأنسب؟",
+options:[
+"علامة مؤكدة على السيطرة الممتازة",
+"قد يشير إلى سوء السيطرة ويحتاج إلى تقييم خطة العلاج وتقنية الاستنشاق",
+"ينبغي إيقاف العلاج الوقائي",
+"لا داعي للاهتمام بالتغير"
+],
+answer:1,
+explanation:"ازدياد استخدام بخاخ الإنقاذ قد يدل على سوء السيطرة أو تفاقم الربو. يجب مراجعة الخطة العلاجية وتقنية الاستخدام، والتوجه العاجل عند وجود علامات شدة."
+},
+{
+level:"متقدم",system:"التداخلات الدوائية",
+title:"إطالة QT",
+scenario:"مريض لديه تاريخ إطالة فترة QT وانخفاض في البوتاسيوم، ويُفكر بوصف دواء قد يطيل QT.",
+question:"ما النهج الأفضل؟",
+options:[
+"وصفه دون مراجعة",
+"تقييم الخطر القلبي والشوارد والأدوية البديلة والتداخلات قبل اتخاذ القرار",
+"تجاهل تخطيط القلب",
+"إضافة دواء آخر يطيل QT"
+],
+answer:1,
+explanation:"اجتماع إطالة QT مع نقص البوتاسيوم وبعض الأدوية قد يزيد خطر اضطراب نظم خطير. يلزم تقييم فردي وتصحيح العوامل القابلة للتعديل ومراجعة البدائل."
+},
+{
+level:"متقدم",system:"القلب والضغط",
+title:"ستاتين وألم عضلي",
+scenario:"مريض يتناول أتورفاستاتين، وبدأ دواءً جديداً ثم ظهر ألم عضلي شديد وبول داكن.",
+question:"ما التصرف الأكثر أماناً؟",
+options:[
+"طمأنته من دون فحص",
+"مضاعفة جرعة الستاتين",
+"تقييم عاجل لاحتمال أذية عضلية شديدة ومراجعة التداخلات ووظائف الكلى",
+"إضافة مضاد التهاب من دون تقييم"
+],
+answer:2,
+explanation:"الألم العضلي الشديد مع البول الداكن قد يشير إلى انحلال الربيدات، وهو احتمال يحتاج إلى تقييم عاجل وفحوص مناسبة ومراجعة الأدوية."
+},
+{
+level:"متقدم",system:"التداخلات الدوائية",
+title:"كلوبيدوغريل وأوميبرازول",
+scenario:"مريض يستخدم كلوبيدوغريل للوقاية من الخثرات، وأضيف له أوميبرازول.",
+question:"ما المسألة التي ينبغي مراجعتها؟",
+options:[
+"قد يقلل أوميبرازول تفعيل كلوبيدوغريل عبر CYP2C19؛ ينبغي مراجعة بديل مناسب مع المختص",
+"هذا المزيج يعالج جميع أنواع العدوى",
+"كلوبيدوغريل يرفع سكر الدم دائماً",
+"لا يوجد أي احتمال للتداخل"
+],
+answer:0,
+explanation:"أوميبرازول وإيزوميبرازول قد يقللان تفعيل كلوبيدوغريل عبر CYP2C19. تُراجع الحاجة إلى حماية المعدة والبدائل والتوصيات السريرية مع الفريق المعالج."
+},
+{
+level:"متقدم",system:"السكري",
+title:"هبوط سكر الدم",
+scenario:"مريض يستخدم الإنسولين أصبح متعرقاً ومرتعشاً ومشوشاً، وقياس السكر منخفض.",
+question:"ما الأولوية؟",
+options:[
+"إعطاؤه جرعة إنسولين إضافية",
+"تأخير التدخل حتى الوجبة التالية",
+"تطبيق بروتوكول علاج نقص السكر فوراً بحسب مستوى الوعي والقدرة على البلع، وطلب الإسعاف عند الشدة",
+"إعطاؤه دواءً فموياً عشوائياً"
+],
+answer:2,
+explanation:"نقص السكر حالة قد تكون خطرة. إذا كان واعياً وقادراً على البلع، تُتبع خطة العلاج المعتمدة للسكر السريع وإعادة القياس. إذا كان فاقد الوعي أو لا يستطيع البلع، لا يُعطى شيء بالفم وتُطلب الإسعافات فوراً."
+},
+{
+level:"متقدم",system:"الجهاز الهضمي",
+title:"نزف هضمي محتمل",
+scenario:"مريض يتناول دواءً مضاداً للالتهاب غير الستيرويدي ويشتكي من براز أسود قطراني ودوخة.",
+question:"ما الخطوة المناسبة؟",
+options:[
+"الاستمرار بالدواء ومراقبة الحالة أسبوعاً",
+"اعتبارها علامة محتملة لنزف هضمي وطلب تقييم إسعافي",
+"إضافة جرعة أخرى من مضاد الالتهاب",
+"نصحه بتقليل الماء فقط"
+],
+answer:1,
+explanation:"البراز الأسود القطراني مع الدوخة قد يدل على نزف هضمي، خصوصاً مع مضادات الالتهاب. يحتاج المريض إلى تقييم عاجل وعدم تأخير الرعاية."
+}
+];
+
+let level = "مبتدئ";
+let session = [];
+let index = 0;
+let roundCorrect = 0;
+let roundWrong = 0;
+let answered = false;
+let progress = loadProgress();
+
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY)) ||
+      {score:0,wrong:0,done:0};
+  } catch(e) {
+    return {score:0,wrong:0,done:0};
+  }
+}
+
+function saveProgress() {
+  localStorage.setItem(KEY, JSON.stringify(progress));
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById("totalScore").textContent = progress.score;
+  document.getElementById("totalWrong").textContent = progress.wrong;
+  document.getElementById("totalDone").textContent = progress.done;
+}
+
+document.querySelectorAll(".level").forEach(btn => {
+  btn.addEventListener("click", () => {
+    level = btn.dataset.level;
+    document.querySelectorAll(".level").forEach(b =>
+      b.classList.toggle("active", b === btn)
+    );
+  });
+});
+
+function startCases() {
+  const system = document.getElementById("system").value;
+  session = cases.filter(c =>
+    c.level === level && (system === "الكل" || c.system === system)
+  );
+
+  if (!session.length) {
+    alert("ماكو كيسات بهذا الاختيار حالياً. اختَر نظاماً آخر أو مستوى آخر.");
+    return;
+  }
+
+  // ترتيب عشوائي داخل الجولة
+  session = [...session].sort(() => Math.random() - 0.5);
+  index = 0;
+  roundCorrect = 0;
+  roundWrong = 0;
+
+  document.getElementById("setup").style.display = "none";
+  document.getElementById("summary").classList.remove("show");
+  document.getElementById("quiz").style.display = "block";
+  renderCase();
+}
+
+function renderCase() {
+  answered = false;
+  const c = session[index];
+
+  document.getElementById("caseLevel").textContent = c.level + " • " + c.system;
+  document.getElementById("caseNumber").textContent =
+    "الكيس " + (index + 1) + " من " + session.length;
+  document.getElementById("bar").style.width =
+    ((index / session.length) * 100) + "%";
+  document.getElementById("caseTitle").textContent = c.title;
+  document.getElementById("scenario").textContent = c.scenario;
+  document.getElementById("question").textContent = c.question;
+  document.getElementById("feedback").className = "feedback";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("nextBtn").disabled = true;
+  document.getElementById("nextBtn").textContent =
+    index === session.length - 1 ? "عرض النتيجة" : "الكيس التالي ←";
+
+  const options = document.getElementById("options");
+  options.innerHTML = "";
+
+  c.options.forEach((option, i) => {
+    const b = document.createElement("button");
+    b.className = "option";
+    b.textContent = String.fromCharCode(65 + i) + ". " + option;
+    b.onclick = () => answerCase(i);
+    options.appendChild(b);
+  });
+}
+
+function answerCase(choice) {
+  if (answered) return;
+  answered = true;
+
+  const c = session[index];
+  const buttons = [...document.querySelectorAll(".option")];
+  buttons.forEach(b => b.disabled = true);
+  buttons[c.answer].classList.add("correct");
+
+  const feedback = document.getElementById("feedback");
+
+  if (choice === c.answer) {
+    roundCorrect++;
+    progress.score++;
+    feedback.className = "feedback show good";
+    feedback.textContent = "إجابة صحيحة! ✓ التفسير: " + c.explanation;
+  } else {
+    roundWrong++;
+    progress.wrong++;
+    buttons[choice].classList.add("wrong");
+    feedback.className = "feedback show bad";
+    feedback.textContent = "إجابة غير صحيحة. الإجابة الأفضل هي: " +
+      c.options[c.answer] + ". التفسير: " + c.explanation;
+  }
+
+  progress.done++;
+  saveProgress();
+  document.getElementById("nextBtn").disabled = false;
+}
+
+function nextCase() {
+  if (!answered) return;
+  index++;
+
+  if (index >= session.length) {
+    document.getElementById("quiz").style.display = "none";
+    const summary = document.getElementById("summary");
+    summary.classList.add("show");
+    document.getElementById("bar").style.width = "100%";
+    document.getElementById("roundScore").textContent =
+      roundCorrect + " / " + session.length;
+    document.getElementById("roundMessage").textContent =
+      "إجابات صحيحة: " + roundCorrect +
+      " | أخطاء: " + roundWrong +
+      ". راجع التفسيرات قبل بدء الجولة التالية.";
+    return;
+  }
+
+  renderCase();
+}
+
+function backToSetup() {
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("summary").classList.remove("show");
+  document.getElementById("setup").style.display = "block";
+}
+
+function resetProgress() {
+  if (!confirm("هل تريد تصفير مجموع النقاط والأخطاء والإجابات المحفوظة؟")) return;
+  progress = {score:0,wrong:0,done:0};
+  saveProgress();
+  backToSetup();
+}
+
+updateStats();
+</script>
+</body>
+</html>

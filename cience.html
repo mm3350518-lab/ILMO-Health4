@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087fa8">
+<title>ILMO Health | دراسة المرحلة الثالثة</title>
+
+<style>
+:root{
+  --blue:#087fa8;
+  --cyan:#20b8d5;
+  --light:#eaf9ff;
+  --ink:#163746;
+  --muted:#6d8794;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:var(--ink);
+  background:var(--light);
+}
+header{
+  padding:22px 17px 27px;
+  color:white;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  border-radius:0 0 25px 25px;
+}
+.top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.back{
+  color:white;
+  text-decoration:none;
+  border:1px solid #ffffff80;
+  border-radius:12px;
+  padding:10px;
+  white-space:nowrap;
+}
+h1{font-size:22px;margin:0 0 7px}
+header p{font-size:13px;line-height:1.8;margin:0}
+main{max-width:850px;margin:auto;padding:18px 14px 35px}
+.source{
+  background:white;
+  border:1px solid #dceef5;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:18px;
+}
+.source-label{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:bold;
+}
+.source h2{font-size:18px;line-height:1.8;margin:10px 0}
+.source p{font-size:13px;line-height:1.9;color:var(--muted)}
+.source-name{
+  background:var(--light);
+  border-radius:12px;
+  padding:12px;
+  font-size:13px;
+  line-height:1.9;
+}
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #d4e7ef;
+  border-radius:13px;
+  background:white;
+  font-size:15px;
+  outline-color:var(--cyan);
+}
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:13px 0;
+}
+.filter{
+  flex-shrink:0;
+  background:white;
+  border:1px solid #d4e7ef;
+  color:var(--ink);
+  border-radius:20px;
+  padding:10px 13px;
+  cursor:pointer;
+}
+.filter.active{
+  color:white;
+  background:var(--blue);
+  border-color:var(--blue);
+}
+.count{font-size:12px;color:var(--muted);margin:3px 0 12px}
+.topics{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+}
+.topic{
+  background:white;
+  border:1px solid #dceef5;
+  border-radius:17px;
+  padding:15px;
+  text-align:right;
+  color:var(--ink);
+  cursor:pointer;
+  min-width:0;
+}
+.topic:active{transform:scale(.98)}
+.emoji{
+  width:43px;height:43px;
+  display:grid;place-items:center;
+  background:var(--light);
+  border-radius:13px;
+  font-size:23px;
+  margin-bottom:11px;
+}
+.topic h3{font-size:15px;line-height:1.7;margin:0 0 7px}
+.topic p{font-size:12px;color:var(--muted);line-height:1.8;margin:0}
+.open{
+  display:inline-block;
+  margin-top:11px;
+  color:var(--blue);
+  font-size:12px;
+}
+.detail{
+  display:none;
+  background:white;
+  border:1px solid #dceef5;
+  border-radius:18px;
+  padding:18px;
+  margin-top:16px;
+}
+.detail.show{display:block}
+.detail h2{font-size:20px;line-height:1.7}
+.detail h3{font-size:15px;color:var(--blue);margin-top:20px}
+.detail p,.detail li{font-size:14px;line-height:2}
+.detail ul{padding-right:20px}
+.close{
+  background:var(--light);
+  color:var(--blue);
+  border:0;
+  padding:10px 13px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.notice{
+  background:#fff8df;
+  border:1px solid #f3e6b5;
+  padding:14px;
+  border-radius:14px;
+  font-size:12px;
+  line-height:1.9;
+  margin-top:18px;
+}
+.empty{
+  grid-column:1/-1;
+  padding:22px;
+  background:white;
+  border-radius:15px;
+  text-align:center;
+}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(min-width:620px){
+  .topics{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:350px){
+  .topics{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="top">
+    <a class="back" href="index.html">← الرئيسية</a>
+    <div>
+      <h1>📚 المادة العلمية</h1>
+      <p>دراسة الأدوية والتدريب الصيدلاني | ILMO Health</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="source">
+    <div class="source-label">المصدر الدراسي الرئيسي</div>
+    <h2>Summer Training Guide for Third Stage Pharmacy Students</h2>
+    <div class="source-name">
+      <strong>دليل التدريب الصيفي لطلبة المرحلة الثالثة</strong><br>
+      المصدر المعتمد لهذا القسم: دليل د. ضياء جبار للتدريب الصيفي.
+    </div>
+    <p>
+      مكتبة تعليمية لتنظيم دراسة المجموعات الدوائية ومراجعة
+      الاستعمالات وآليات العمل والاحتياطات والتداخلات الدوائية.
+      يُرجع إلى الدليل الأصلي عند دراسة التفاصيل.
+    </p>
+  </section>
+
+  <input id="search" class="search" type="search"
+    placeholder="ابحث عن موضوع دراسي..."
+    aria-label="البحث في المادة العلمية">
+
+  <div id="filters" class="filters"></div>
+  <p id="count" class="count"></p>
+  <div id="topics" class="topics"></div>
+
+  <section id="detail" class="detail">
+    <button class="close" onclick="closeTopic()">إغلاق ✕</button>
+    <h2 id="detailTitle"></h2>
+    <div id="detailContent"></div>
+  </section>
+
+  <div class="notice">
+    <strong>ملاحظة مهمة:</strong>
+    هذه الصفحة فهرس دراسي وملخصات تمهيدية، وليست نسخة كاملة
+    من الدليل. المعلومات العلاجية والجرعات تحتاج إلى مراجعة
+    النص الأصلي والمراجع الحديثة والإرشادات المعتمدة.
+  </div>
+</main>
+
+<footer>ILMO Health © 2026</footer>
+
+<script>
+const topics = [
+{
+cat:"القلب والدم",
+icon:"❤️",
+title:"أدوية القلب وضغط الدم",
+desc:"مجموعات علاج ارتفاع الضغط وأمراض القلب.",
+points:[
+"التعرف على المجموعات الدوائية وأمثلتها.",
+"فهم آلية العمل والاستعمالات الأساسية.",
+"مراجعة موانع الاستعمال والآثار الجانبية.",
+"الانتباه إلى مراقبة ضغط الدم ووظائف الكلى والشوارد حسب الدواء."
+]
+},
+{
+cat:"القلب والدم",
+icon:"🩸",
+title:"مضادات التخثر والصفائح",
+desc:"Anticoagulants and Antiplatelets.",
+points:[
+"التمييز بين مضادات التخثر ومضادات تجمع الصفائح.",
+"دراسة الوارفارين ومبادئ متابعة INR.",
+"التعرف على مخاطر النزف والتداخلات الدوائية.",
+"مراجعة التدبير السريري وفق الإرشادات المعتمدة."
+]
+},
+{
+cat:"القلب والدم",
+icon:"🫀",
+title:"أدوية الدهون",
+desc:"Statins وأدوية خفض الدهون.",
+points:[
+"التعرف على مجموعات أدوية خفض الدهون.",
+"فهم آلية عمل الستاتينات.",
+"مراجعة الآثار العضلية والتداخلات المحتملة.",
+"متابعة الدهون والاستجابة للعلاج حسب الحالة."
+]
+},
+{
+cat:"الجهاز الهضمي",
+icon:"🧪",
+title:"أدوية الجهاز الهضمي",
+desc:"القرحة والحموضة والغثيان.",
+points:[
+"مثبطات مضخة البروتون ومضادات مستقبلات H2.",
+"مضادات الحموضة وأدوية الغثيان.",
+"مراجعة الاستعمالات والآثار الجانبية.",
+"التعرف على علامات الإنذار التي تحتاج تقييماً طبياً."
+]
+},
+{
+cat:"الجهاز التنفسي",
+icon:"🫁",
+title:"أدوية الجهاز التنفسي",
+desc:"الربو وتشنج القصبات والسعال.",
+points:[
+"موسعات القصبات قصيرة وطويلة المفعول.",
+"أدوية السيطرة على الربو.",
+"تقنية استخدام البخاخات.",
+"مراجعة المستحضرات المستخدمة للسعال والاحتياطات."
+]
+},
+{
+cat:"الأعصاب",
+icon:"🧠",
+title:"أدوية الجهاز العصبي",
+desc:"الصداع والصرع والاضطرابات العصبية.",
+points:[
+"التعرف على المجموعات الدوائية العصبية.",
+"مراجعة أدوية الصداع النصفي.",
+"التعرف على أدوية الدوار وبعض الاضطرابات الأخرى.",
+"مراجعة الآثار الجانبية والتداخلات المهمة."
+]
+},
+{
+cat:"الالتهابات",
+icon:"🦠",
+title:"المضادات الحيوية",
+desc:"مجموعات المضادات واستعمالاتها.",
+points:[
+"التمييز بين المجموعات الرئيسية للمضادات الحيوية.",
+"فهم آليات العمل العامة.",
+"مراجعة الحساسية الدوائية وتعديل الجرعة عند الحاجة.",
+"ترشيد استعمال المضادات وتجنب استخدامها للعدوى الفيروسية دون داعٍ."
+]
+},
+{
+cat:"الغدد الصماء",
+icon:"🩺",
+title:"أدوية السكري والغدد",
+desc:"أدوية السكري والهرمونات.",
+points:[
+"مراجعة الميتفورمين ومجموعات خفض سكر الدم.",
+"التعرف على الإنسولين ومبادئ السلامة.",
+"التعرف على علامات نقص سكر الدم والتعامل معها.",
+"مراجعة أدوية الغدة الدرقية والمتابعة المخبرية."
+]
+},
+{
+cat:"الجلدية",
+icon:"🧴",
+title:"أدوية الجلد",
+desc:"المستحضرات الموضعية والعلاجات الجلدية.",
+points:[
+"التمييز بين الكريمات والمراهم والأشكال الموضعية.",
+"التعرف على مجموعات العلاجات الجلدية.",
+"مراجعة الاستعمال الصحيح والآثار الموضعية.",
+"الانتباه إلى مساحة الاستخدام ومدة العلاج والتحذيرات."
+]
+},
+{
+cat:"مراجعة عامة",
+icon:"⚠️",
+title:"التداخلات والآثار الجانبية",
+desc:"السلامة الدوائية ومراجعة الوصفات.",
+points:[
+"جمع قائمة الأدوية والمكملات التي يستخدمها المريض.",
+"مراجعة التداخلات قبل إضافة دواء جديد.",
+"تمييز الأثر الجانبي المتوقع عن علامات الخطر.",
+"معرفة متى يجب إحالة الحالة إلى الطبيب أو الطوارئ."
+]
+},
+{
+cat:"مراجعة عامة",
+icon:"💊",
+title:"الأشكال الصيدلانية",
+desc:"الأقراص والكبسولات والمحاليل والمستحضرات.",
+points:[
+"التعرف على الأشكال الصيدلانية المختلفة.",
+"فهم الفروقات الأساسية بين المستحضرات.",
+"مراجعة شروط الحفظ والتخزين.",
+"الانتباه إلى الأقراص ممتدة المفعول وعدم سحقها إلا بعد التحقق."
+]
+},
+{
+cat:"مراجعة عامة",
+icon:"📖",
+title:"مراجعة الأدوية عملياً",
+desc:"الاسم العلمي والتجاري والاستعمالات.",
+points:[
+"كتابة الاسم العلمي والاسم التجاري عند توفره.",
+"تحديد المجموعة الدوائية وآلية العمل.",
+"تسجيل الاستعمالات والآثار الجانبية المهمة.",
+"توثيق الجرعات من مرجع رسمي مناسب للعمر والحالة."
+]
+}
+];
+
+const categories=["الكل",...new Set(topics.map(t=>t.cat))];
+let selected="الكل";
+
+const filterBox=document.getElementById("filters");
+const topicBox=document.getElementById("topics");
+const search=document.getElementById("search");
+
+function renderFilters(){
+  filterBox.innerHTML="";
+  categories.forEach(cat=>{
+    const b=document.createElement("button");
+    b.className="filter"+(cat===selected?" active":"");
+    b.textContent=cat;
+    b.onclick=()=>{
+      selected=cat;
+      renderFilters();
+      renderTopics();
+    };
+    filterBox.appendChild(b);
+  });
+}
+
+function renderTopics(){
+  const q=search.value.trim().toLowerCase();
+  const found=topics.filter(t=>{
+    const categoryMatch=selected==="الكل"||t.cat===selected;
+    const text=[t.title,t.desc,t.cat,...t.points].join(" ").toLowerCase();
+    return categoryMatch&&text.includes(q);
+  });
+
+  document.getElementById("count").textContent=
+    "عدد الموضوعات: "+found.length;
+  topicBox.innerHTML="";
+
+  if(!found.length){
+    topicBox.innerHTML='<div class="empty">ما لقينا موضوع بهذا الاسم.</div>';
+    return;
+  }
+
+  found.forEach(t=>{
+    const b=document.createElement("button");
+    b.className="topic";
+
+    const icon=document.createElement("div");
+    icon.className="emoji";
+    icon.textContent=t.icon;
+
+    const h=document.createElement("h3");
+    h.textContent=t.title;
+
+    const p=document.createElement("p");
+    p.textContent=t.desc;
+
+    const open=document.createElement("span");
+    open.className="open";
+    open.textContent="افتح الموضوع ←";
+
+    b.append(icon,h,p,open);
+    b.onclick=()=>openTopic(t);
+    topicBox.appendChild(b);
+  });
+}
+
+function openTopic(t){
+  document.getElementById("detailTitle").textContent=t.title;
+  const content=document.getElementById("detailContent");
+  content.innerHTML="";
+
+  const intro=document.createElement("p");
+  intro.textContent=t.desc;
+  content.appendChild(intro);
+
+  const h=document.createElement("h3");
+  h.textContent="محاور المراجعة";
+  content.appendChild(h);
+
+  const ul=document.createElement("ul");
+  t.points.forEach(point=>{
+    const li=document.createElement("li");
+    li.textContent=point;
+    ul.appendChild(li);
+  });
+  content.appendChild(ul);
+
+  const note=document.createElement("p");
+  note.textContent=
+    "للتفاصيل والأسماء والجرعات، ارجع إلى القسم المقابل في دليل التدريب الأصلي وتحقق من المرجع الدوائي المعتمد.";
+  content.appendChild(note);
+
+  const detail=document.getElementById("detail");
+  detail.classList.add("show");
+  detail.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function closeTopic(){
+  document.getElementById("detail").classList.remove("show");
+}
+
+search.addEventListener("input",renderTopics);
+renderFilters();
+renderTopics();
+</script>
+</body>
+</html>

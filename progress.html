@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087fa8">
+<title>ILMO Health | التقدم</title>
+
+<style>
+:root {
+  --blue: #087fa8;
+  --cyan: #20b8d5;
+  --light: #eaf9ff;
+  --white: #ffffff;
+  --ink: #163746;
+  --muted: #66808c;
+  --green: #15966a;
+  --red: #d94b55;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--light);
+  color: var(--ink);
+}
+header {
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  color: white;
+  padding: 25px 18px 30px;
+  border-radius: 0 0 25px 25px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+header h1 { margin: 0; font-size: 25px; }
+header p { margin: 12px 0 0; line-height: 1.8; }
+.back {
+  color: white;
+  text-decoration: none;
+  border: 1px solid #ffffff90;
+  padding: 9px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
+.card {
+  background: var(--white);
+  padding: 18px;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  box-shadow: 0 5px 18px #087fa810;
+}
+.card h2 {
+  margin: 0 0 15px;
+  font-size: 19px;
+}
+.level-box {
+  text-align: center;
+  background: linear-gradient(135deg, #e1f8ff, #f4fcff);
+}
+.level-icon { font-size: 35px; }
+.level {
+  font-size: 23px;
+  font-weight: bold;
+  color: var(--blue);
+  margin: 10px 0;
+}
+.muted { color: var(--muted); line-height: 1.8; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.stat {
+  border: 1px solid #e3f0f5;
+  border-radius: 15px;
+  padding: 15px 10px;
+  text-align: center;
+}
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+.stat-label { color: var(--muted); font-size: 14px; }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.blue { color: var(--blue); }
+.progress-track {
+  width: 100%;
+  height: 13px;
+  background: #e7f1f5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 14px 0 8px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  border-radius: 20px;
+  transition: width .4s;
+}
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary {
+  width: 100%;
+  color: white;
+  background: var(--blue);
+}
+.secondary {
+  width: 100%;
+  color: var(--blue);
+  background: #e5f7fc;
+  margin-top: 10px;
+}
+.danger {
+  width: 100%;
+  color: var(--red);
+  background: #fff0f0;
+  margin-top: 10px;
+}
+.note {
+  background: #fff8df;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #755b13;
+}
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 15px;
+}
+@media (min-width: 600px) {
+  .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="top">
+    <h1>📈 تقدّمي الدراسي</h1>
+    <a class="back" href="index.html">الرئيسية ←</a>
+  </div>
+  <p>تابع نتائجك وتقدّمك في رحلة التعلّم مع ILMO Health.</p>
+</header>
+
+<main>
+  <section class="card level-box">
+    <div class="level-icon">🎓</div>
+    <div class="muted">مستواك الحالي</div>
+    <div class="level" id="level">مبتدئ</div>
+    <div class="muted" id="levelMessage">
+      ابدأ بحل الكيسات حتى تتابع تقدّمك.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📊 إحصائياتك</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number blue" id="answered">0</div>
+        <div class="stat-label">الإجابات المسجّلة</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number green" id="correct">0</div>
+        <div class="stat-label">إجابات صحيحة</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number red" id="wrong">0</div>
+        <div class="stat-label">إجابات خاطئة</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number blue" id="accuracy">0%</div>
+        <div class="stat-label">نسبة الإجابات الصحيحة</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🎯 نسبة النجاح</h2>
+    <div id="percentLabel">0% من الإجابات صحيحة</div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p class="muted" id="progressMessage">
+      استمر بالتعلّم وحل المزيد من الكيسات.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🔄 تحديث البيانات</h2>
+    <p class="muted">
+      اقرأ الإحصائيات المحفوظة على هذا الجهاز مرة أخرى.
+    </p>
+    <button class="primary" onclick="loadProgress()">
+      تحديث الإحصائيات
+    </button>
+    <button class="secondary" onclick="location.href='cases.html'">
+      الانتقال إلى الكيسات الدوائية
+    </button>
+    <button class="secondary" onclick="location.href='science.html'">
+      متابعة الدراسة العلمية
+    </button>
+  </section>
+
+  <section class="card">
+    <h2>🗑️ إعادة ضبط التقدّم</h2>
+    <p class="muted">
+      لا تضغط هذا الزر إلا إذا تريد حذف إحصائيات التقدّم المحفوظة.
+    </p>
+    <div class="note">
+      تنبيه: حذف البيانات قد يمسح نتائج أخرى إذا كانت محفوظة في نفس سجل التطبيق.
+    </div>
+    <button class="danger" onclick="resetProgress()">
+      إعادة ضبط الإحصائيات
+    </button>
+  </section>
+</main>
+
+<footer>ILMO Health · التعلّم المستمر يصنع صيدلياً أفضل</footer>
+
+<script>
+const SAVE_KEY = "ILMO_HEALTH_PROGRESS";
+
+function findValue(obj, names, depth = 0) {
+  if (!obj || typeof obj !== "object" || depth > 5) return undefined;
+
+  for (const key of names) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+      if (typeof value === "number" && Number.isFinite(value)) {
+        return value;
+      }
+    }
+  }
+
+  for (const value of Object.values(obj)) {
+    if (value && typeof value === "object") {
+      const found = findValue(value, names, depth + 1);
+      if (found !== undefined) return found;
+    }
+  }
+
+  return undefined;
+}
+
+function readSavedData() {
+  const possibleKeys = [
+    SAVE_KEY,
+    "ilmoHealth",
+    "ilmo-health",
+    "ilmo_health",
+    "ILMOHealth",
+    "saydalati",
+    "pharmacyProgress",
+    "quizProgress",
+    "progress",
+    "state"
+  ];
+
+  const sources = [];
+
+  for (const key of possibleKeys) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+
+      try {
+        sources.push(JSON.parse(raw));
+      } catch {
+        // تجاهل السجل الذي ليس بصيغة JSON
+      }
+    } catch (error) {}
+  }
+
+  // البحث في السجلات الأخرى دون تعديلها.
+  for (let i = 0; i < localStorage.length; i++) {
+    try {
+      const key = localStorage.key(i);
+      if (!key || possibleKeys.includes(key)) continue;
+
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") {
+        sources.push(parsed);
+      }
+    } catch (error) {}
+  }
+
+  return sources;
+}
+
+function loadProgress() {
+  const sources = readSavedData();
+
+  let answered = 0;
+  let correct = 0;
+  let wrong = 0;
+  let score = 0;
+  let foundData = false;
+
+  for (const data of sources) {
+    const a = findValue(data, [
+      "answered", "totalAnswered", "questionsAnswered",
+      "attempted", "answeredCount"
+    ]);
+
+    const c = findValue(data, [
+      "correct", "correctAnswers", "rightAnswers",
+      "correctCount"
+    ]);
+
+    const w = findValue(data, [
+      "wrong", "wrongAnswers", "incorrect",
+      "incorrectAnswers", "wrongCount"
+    ]);
+
+    const s = findValue(data, [
+      "score", "points", "totalScore"
+    ]);
+
+    if (a !== undefined || c !== undefined || w !== undefined || s !== undefined) {
+      foundData = true;
+      if (a !== undefined) answered = Math.max(answered, a);
+      if (c !== undefined) correct = Math.max(correct, c);
+      if (w !== undefined) wrong = Math.max(wrong, w);
+      if (s !== undefined) score = Math.max(score, s);
+    }
+  }
+
+  // بعض نسخ التطبيق القديمة تخزّن النقاط والإجابات فقط.
+  if (answered > 0 && correct === 0 && score > 0) {
+    correct = Math.min(answered, Math.round(score / 10));
+  }
+
+  if (answered > 0 && wrong === 0 && correct > 0) {
+    wrong = Math.max(0, answered - correct);
+  }
+
+  // إذا لم يُعثر على عدّاد الإجابات، لا نخمنه من النقاط.
+  answered = Math.max(answered, correct + wrong);
+
+  const accuracy = answered > 0
+    ? Math.round((correct / answered) * 100)
+    : 0;
+
+  document.getElementById("answered").textContent = answered;
+  document.getElementById("correct").textContent = correct;
+  document.getElementById("wrong").textContent = wrong;
+  document.getElementById("accuracy").textContent = accuracy + "%";
+  document.getElementById("percentLabel").textContent =
+    accuracy + "% من الإجابات صحيحة";
+  document.getElementById("progressFill").style.width =
+    Math.min(100, accuracy) + "%";
+
+  let level = "مبتدئ";
+  let message = "ابدأ بحل الكيسات حتى تطوّر مستواك.";
+
+  if (answered >= 10 && accuracy >= 80) {
+    level = "متقدم";
+    message = "أداء ممتاز! واصل مراجعة المعلومات العلمية.";
+  } else if (answered >= 5 && accuracy >= 60) {
+    level = "متوسط";
+    message = "تقدّم جيد، استمر بالتدريب والمراجعة.";
+  } else if (answered > 0) {
+    message = "راجع الإجابات الخاطئة وواصل حل الكيسات.";
+  }
+
+  document.getElementById("level").textContent = level;
+  document.getElementById("levelMessage").textContent = message;
+
+  document.getElementById("progressMessage").textContent =
+    answered === 0
+      ? "ماكو إجابات مسجّلة بعد، ابدأ من قسم الكيسات."
+      : "عندك " + correct + " إجابة صحيحة من أصل " +
+        answered + " إجابة مسجّلة.";
+
+  if (!foundData || answered === 0) {
+    document.getElementById("progressMessage").textContent =
+      "إذا كنت قد حللت كيسات سابقاً، فقد نحتاج إلى مطابقة اسم التخزين في ملف cases.html.";
+  }
+}
+
+function resetProgress() {
+  const ok = confirm(
+    "هل تريد إعادة ضبط بيانات التقدّم؟ تأكد أولاً من أن بياناتك محفوظة أو أنك تقبل فقدانها."
+  );
+
+  if (!ok) return;
+
+  // نحذف سجل التقدّم الخاص بهذا الملف فقط.
+  // لا نحذف سجلات الكيسات الأخرى حتى لا نفقد بياناتها بالخطأ.
+  localStorage.removeItem(SAVE_KEY);
+
+  alert(
+    "تم حذف سجل التقدّم المستقل فقط. إذا كانت نتائج الكيسات محفوظة بمفتاح آخر، فلن تُحذف."
+  );
+
+  loadProgress();
+}
+
+loadProgress();
+</script>
+</body>
+</html>
